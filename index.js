@@ -58,12 +58,12 @@ client.once(Events.ClientReady, c => {
 
 client.on(Events.InteractionCreate, async interaction => {
 
-    if (interaction.customId === 'myModal') {
+    if (interaction.customId === 'maRecette') {
         const component = interaction.components;
         for (const actionRowModalDatum of component) {
             console.log(actionRowModalDatum)
         }
-        await interaction.reply({ content: 'Your submission was received successfully!' });
+        await interaction.reply({ content: "Une recette va t'être envoyé rapidement" });
     }
 
     if (!interaction.isChatInputCommand()) return;
