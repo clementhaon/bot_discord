@@ -1,0 +1,25 @@
+{
+  "name": "bot_discord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clementhaon/bot_discord.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clementhaon/bot_discord/issues"
+  },
+  "homepage": "https://github.com/clementhaon/bot_discord#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "discord.js": "^14.8.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
