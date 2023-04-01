@@ -21,13 +21,13 @@ module.exports = {
 
         const ingredientPresent = new TextInputBuilder()
             .setCustomId('ingredientPresent')
-            .setLabel("Quel ingrédient voudrais-tu?")
+            .setLabel("Des ingrédients favoris ?")
             // Paragraph means multiple lines of text.
             .setStyle(TextInputStyle.Paragraph);
 
         const ingredientNonPresent = new TextInputBuilder()
             .setCustomId('ingredientNonPresent')
-            .setLabel("Quel ingrédient ne voudrais-tu pas?")
+            .setLabel("Allergie, intolérance ?")
             // Paragraph means multiple lines of text.
             .setStyle(TextInputStyle.Paragraph);
 

@@ -5,6 +5,7 @@ require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const PORT = process.env.PORT || 4000;
+const { Configuration, OpenAIApi } = require("openai");
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const token = process.env.DISCORD_TOKEN;
 const {sendMessageAfterConnection} = require('./controller/connection');
@@ -35,6 +36,12 @@ httpServer.listen(PORT, () => {
     console.log(`http server listening on port ${PORT}`)
 });
 
+const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -59,11 +66,27 @@ client.once(Events.ClientReady, c => {
 client.on(Events.InteractionCreate, async interaction => {
 
     if (interaction.customId === 'maRecette') {
-        const component = interaction.components;
-        for (const actionRowModalDatum of component) {
-            console.log(actionRowModalDatum)
+        try {
+            await interaction.deferReply({ ephemeral: true });
+            const component = interaction.components;
+            let array = [];
+            for (const actionRowModalDatum of component) {
+                let object = {
+                    data: actionRowModalDatum.components[0].value
+                }
+                array.push(object);
+            }
+            console.log(array[0].data)
+            const completion = await openai.createChatCompletion({
+                model: "gpt-3.5-turbo",
+                messages: [{role: "user", content:`Pourrais tu me trouver une recette pour ${array[0].data}, avec ${array[1].data} mais sans ${array[2].data}`}],
+            });
+            console.log(completion.data.choices[0].message.content);
+            await interaction.editReply({ content: completion.data.choices[0].message.content });
+        }catch (e) {
+            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
-        await interaction.reply({ content: "Une recette va t'être envoyé rapidement" });
+
     }
 
     if (!interaction.isChatInputCommand()) return;
