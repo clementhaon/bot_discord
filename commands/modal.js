@@ -1,7 +1,6 @@
 const {SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, DateInputBuilder} = require('discord.js');
 
-module.exports = {
-    data: new SlashCommandBuilder()
+module.exports = {  data: new SlashCommandBuilder()
         .setName('recette')
         .setDescription('Recette de saison'),
     async execute(interaction) {
@@ -44,4 +43,5 @@ module.exports = {
         // Show the modal to the user
         await interaction.showModal(modal);
     }
+
 }
